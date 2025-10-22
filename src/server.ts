@@ -1,28 +1,26 @@
-const fastify = require("fastify");
-const crypto = require("node:crypto");
+import fastifyCors from "@fastify/cors";
+import fastify from "fastify";
+import {
+	serializerCompiler,
+	validatorCompiler,
+	type ZodTypeProvider,
+} from "fastify-type-provider-zod";
+import { coursesRoutes } from "./modules/courses/routes/index";
+import { usersRoutes } from "./modules/users/routes/index";
 
-const server = fastify();
+const app = fastify().withTypeProvider<ZodTypeProvider>();
 
-const courses = [
-	{ id: "1", name: "Node.js" },
-	{ id: "2", name: "React.js" },
-	{ id: "3", name: "React Native" },
-];
-
-server.get("/courses", () => {
-	return { courses, page: 1 };
+app.register(fastifyCors, {
+	origin: "0.0.1",
+	methods: "*",
 });
 
-server.post("/courses", (request, reply) => {
-	const courseId = crypto.randomUUID();
-	courses.push({ id: courseId, name: "TypeScript" });
+app.setSerializerCompiler(serializerCompiler);
+app.setValidatorCompiler(validatorCompiler);
 
-	return reply.status(201).send({
-		id: courseId,
-		name: "TypeScript",
-	});
-});
+app.register(usersRoutes, { prefix: "/users" });
+app.register(coursesRoutes, { prefix: "/courses" });
 
-server.listen({ port: 3333 }).then(() => {
+app.listen({ port: 3333 }).then(() => {
 	console.log("Server running on http://localhost:3333");
 });

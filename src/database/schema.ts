@@ -1,13 +1,7 @@
-import { pgTable, text, uuid } from "drizzle-orm/pg-core";
+import { courses } from "../modules/courses/db";
+import { users } from "../modules/users/db";
 
-export const users = pgTable("users", {
-	id: uuid().primaryKey().defaultRandom(),
-	name: text().notNull(),
-	email: text().notNull().unique(),
-});
-
-export const courses = pgTable("courses", {
-	id: uuid().primaryKey().defaultRandom(),
-	title: text().notNull().unique(),
-	description: text(),
-});
+export const schema = {
+	courses,
+	users,
+};
