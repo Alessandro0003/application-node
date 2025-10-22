@@ -1,14 +1,19 @@
-import { db } from "../../../database/client";
-import { users } from "../db";
-import type { CreateUser } from "./types";
+import { db } from "../../../database/client.ts";
+import { users } from "../db/index.ts";
+import type { CreateUser } from "./types.ts";
 
 export const createUser = async (args: CreateUser.Args) => {
 	const { name, email } = args;
 
-	const user = await db.insert(users).values({
-		name,
-		email,
-	});
+	const user = await db
+		.insert(users)
+		.values({
+			name,
+			email,
+		})
+		.returning();
 
-	return user;
+	const result = user[0];
+
+	return result;
 };

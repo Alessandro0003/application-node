@@ -1,5 +1,5 @@
-import { courses } from "../modules/courses/db";
-import { users } from "../modules/users/db";
+import { courses } from "../modules/courses/db/index.ts";
+import { users } from "../modules/users/db/index.ts";
 
 export const schema = {
 	courses,

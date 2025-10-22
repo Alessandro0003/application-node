@@ -1,6 +1,6 @@
 import type { FastifyReply } from "fastify";
-import * as service from "../services";
-import type { CreateUserRequest } from "./types";
+import * as service from "../services/index.ts";
+import type { CreateUserRequest } from "./types.ts";
 
 export const createUser = async (
 	req: CreateUserRequest,
@@ -11,12 +11,11 @@ export const createUser = async (
 			body: { name, email },
 		} = req;
 
-		const user = await service.createUser({ name, email });
+		await service.createUser({ name, email });
 
 		return reply.send({
 			statusCode: 201,
 			message: "User created successfully",
-			data: user,
 		});
 	} catch (error) {
 		let message = "Error listing room";
