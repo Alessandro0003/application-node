@@ -5,8 +5,8 @@ import {
 	validatorCompiler,
 	type ZodTypeProvider,
 } from "fastify-type-provider-zod";
-import { coursesRoutes } from "./modules/courses/routes/index";
-import { usersRoutes } from "./modules/users/routes/index";
+import { coursesRoutes } from "./modules/courses/routes";
+import { usersRoutes } from "./modules/users/routes";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
