@@ -1,3 +1,15 @@
+export namespace GetUserById {
+	export type Args = {
+		id: string;
+	};
+
+	export type Response = {
+		id: string;
+		name: string;
+		email: string;
+	};
+}
+
 export namespace GetUsers {
 	export type Args = {};
 

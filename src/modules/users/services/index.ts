@@ -1,5 +1,17 @@
 import * as repository from "../repository/index.ts";
-import type { CreateUser, GetUsers } from "./types.ts";
+import type { CreateUser, GetUserById, GetUsers } from "./types.ts";
+
+export const getUserById = async (
+	args: GetUserById.Args,
+): Promise<GetUserById.Response> => {
+	const { id } = args;
+
+	if (!id) throw new Error("ID is required.");
+
+	const user = await repository.getUserById({ id });
+
+	return user;
+};
 
 export const getUsers = async (): Promise<GetUsers.Response> => {
 	const users = await repository.getUsers();

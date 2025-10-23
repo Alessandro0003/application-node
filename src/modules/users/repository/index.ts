@@ -1,6 +1,19 @@
+import { eq } from "drizzle-orm";
 import { db } from "../../../database/client.ts";
 import { users } from "../db/index.ts";
-import type { CreateUser, GetUsers } from "./types.ts";
+import type { CreateUser, GetUserById, GetUsers } from "./types.ts";
+
+export const getUserById = async (
+	args: GetUserById.Args,
+): Promise<GetUserById.Response> => {
+	const { id } = args;
+
+	const result = await db.select().from(users).where(eq(users.id, id));
+
+	const user = result[0];
+
+	return user;
+};
 
 export const getUsers = async (): Promise<GetUsers.Response> => {
 	const result = await db.select().from(users);

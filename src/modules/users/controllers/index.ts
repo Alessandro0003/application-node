@@ -1,6 +1,39 @@
 import type { FastifyReply } from "fastify";
 import * as service from "../services/index.ts";
-import type { CreateUserRequest, GetUsersRequest } from "./types.ts";
+import type {
+	CreateUserRequest,
+	GetUserByIdRequest,
+	GetUsersRequest,
+} from "./types.ts";
+
+export const getUserById = async (
+	req: GetUserByIdRequest,
+	repply: FastifyReply,
+) => {
+	try {
+		const {
+			params: { id },
+		} = req;
+		const user = await service.getUserById({ id });
+
+		return repply.send({
+			statusCode: 200,
+			message: "User retrieved successfully",
+			data: user,
+		});
+	} catch (error) {
+		let message = "Error get user by id";
+
+		if (error instanceof Error) {
+			message = error.message;
+		}
+
+		return repply.status(500).send({
+			statusCode: 500,
+			message,
+		});
+	}
+};
 
 export const getUsers = async (_req: GetUsersRequest, reply: FastifyReply) => {
 	try {
