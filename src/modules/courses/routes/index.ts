@@ -6,7 +6,7 @@ import { createCourse } from "../controllers/schema.ts";
 export const coursesRoutes: FastifyPluginAsync = async (app) => {
 	const route = app.withTypeProvider<ZodTypeProvider>();
 
+	route.get("/:id", controllers.getCourseById);
 	route.get("/", controllers.getCourses);
-
 	route.post("/", { schema: createCourse }, controllers.createCourse);
 };

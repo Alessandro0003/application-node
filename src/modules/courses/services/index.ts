@@ -1,5 +1,15 @@
 import * as repository from "../repository/index.ts";
-import type { CreateCourse, GetCourse } from "./types.ts";
+import type { CreateCourse, GetCourse, GetCourseById } from "./types.ts";
+
+export const getCourseById = async (
+	args: GetCourseById.Args,
+): Promise<GetCourseById.Response> => {
+	const { id } = args;
+
+	const course = await repository.getCourseById({ id });
+
+	return course;
+};
 
 export const getCourses = async (): Promise<GetCourse.Response> => {
 	const courses = await repository.getCourses();

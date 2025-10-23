@@ -1,5 +1,11 @@
 import z from "zod";
 
+export const getCourseById = z.object({
+	params: z.object({
+		id: z.string().uuid("Invalid course ID"),
+	}),
+});
+
 export const getCourses = z.object({});
 
 export const createCourse = z.object({

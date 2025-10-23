@@ -1,6 +1,22 @@
+import { eq } from "drizzle-orm";
 import { db } from "../../../database/client.ts";
 import { courses } from "../db/index.ts";
-import type { CreateCourse, GetCourses } from "./types.ts";
+import type { CreateCourse, GetCourseById, GetCourses } from "./types.ts";
+
+export const getCourseById = async (
+	args: GetCourseById.Args,
+): Promise<GetCourseById.Response> => {
+	const { id } = args;
+
+	const result = await db.select().from(courses).where(eq(courses.id, id));
+
+	const course = result[0];
+
+	return {
+		...course,
+		description: course.description || "",
+	};
+};
 
 export const getCourses = async (): Promise<GetCourses.Response> => {
 	const result = await db.select().from(courses);
