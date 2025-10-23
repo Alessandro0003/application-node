@@ -18,7 +18,7 @@ export const createUser = async (
 			message: "User created successfully",
 		});
 	} catch (error) {
-		let message = "Error listing room";
+		let message = "Error create user";
 
 		if (error instanceof Error) {
 			message = error.message;
