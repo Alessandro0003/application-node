@@ -6,8 +6,6 @@ import { createUser } from "../controllers/schema.ts";
 export const usersRoutes: FastifyPluginAsync = async (app) => {
 	const route = app.withTypeProvider<ZodTypeProvider>();
 
-	route.get("/", () => {
-		return { message: "List all users" };
-	});
+	route.get("/", controller.getUsers);
 	route.post("/", { schema: createUser }, controller.createUser);
 };
