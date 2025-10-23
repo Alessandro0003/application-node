@@ -40,6 +40,7 @@ export const createCourse = async (
 
 		return reply.status(201).send({
 			statusCode: 201,
+			message: "Course created successfully",
 		});
 	} catch (error) {
 		let message = "Error create course";
