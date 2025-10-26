@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { and, desc, eq, ilike, type SQL } from "drizzle-orm";
 import { db } from "../../../database/client.ts";
 import { courses } from "../db/index.ts";
 import type { CreateCourse, GetCourseById, GetCourses } from "./types.ts";
@@ -18,13 +18,42 @@ export const getCourseById = async (
 	};
 };
 
-export const getCourses = async (): Promise<GetCourses.Response> => {
-	const result = await db.select().from(courses);
+export const getCourses = async (
+	args: GetCourses.Args,
+): Promise<GetCourses.Response> => {
+	const { search, orderBy, page } = args;
 
-	return result.map((courses) => ({
+	const orderByColumn = orderBy === "id" ? courses.id : courses.title;
+
+	const currentPage = page ?? 1;
+
+	const conditions: SQL[] = [];
+
+	if (search) {
+		conditions.push(ilike(courses.title, `%${search}%`));
+	}
+
+	const [result, total] = await Promise.all([
+		db
+			.select()
+			.from(courses)
+			.orderBy(desc(orderByColumn))
+			.offset((currentPage - 1) * 2)
+			.limit(2)
+			.where(and(...conditions)),
+
+		db.$count(courses, and(...conditions)),
+	]);
+
+	const allCourse = result.map((courses) => ({
 		...courses,
 		description: courses.description || "",
 	}));
+
+	return {
+		courses: allCourse,
+		total,
+	};
 };
 
 export const createCourse = async (
