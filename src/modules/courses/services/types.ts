@@ -11,12 +11,19 @@ export namespace GetCourseById {
 }
 
 export namespace GetCourse {
-	export type Args = {};
+	export type Args = {
+		search?: string;
+		orderBy?: "title" | "id";
+		page?: number;
+	};
 	export type Response = {
-		id: string;
-		title: string;
-		description: string;
-	}[];
+		courses: {
+			id: string;
+			title: string;
+			description: string;
+		}[];
+		total: number;
+	};
 }
 export namespace CreateCourse {
 	export type Args = {

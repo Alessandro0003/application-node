@@ -11,8 +11,15 @@ export const getCourseById = async (
 	return course;
 };
 
-export const getCourses = async (): Promise<GetCourse.Response> => {
-	const courses = await repository.getCourses();
+export const getCourses = async (
+	args: GetCourse.Args,
+): Promise<GetCourse.Response> => {
+	const { search, orderBy, page } = args;
+	const courses = await repository.getCourses({
+		search,
+		orderBy,
+		page,
+	});
 
 	return courses;
 };
@@ -22,8 +29,10 @@ export const createCourse = async (
 ): Promise<CreateCourse.Response> => {
 	const { title, description } = args;
 
-	const courses = await repository.getCourses();
-	const isTitleExists = courses.some((course) => course.title === title);
+	const courses = await repository.getCourses({});
+	const isTitleExists = courses.courses.some(
+		(course) => course.title === title,
+	);
 
 	if (isTitleExists) {
 		throw new Error("Title already exists");
