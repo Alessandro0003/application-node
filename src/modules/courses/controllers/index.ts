@@ -37,11 +37,19 @@ export const getCourseById = async (
 };
 
 export const getCourses = async (
-	_req: GetCoursesRequest,
+	req: GetCoursesRequest,
 	reply: FastifyReply,
 ) => {
 	try {
-		const courses = await service.getCourses();
+		const {
+			query: { search, orderBy, page },
+		} = req;
+
+		const courses = await service.getCourses({
+			search,
+			orderBy,
+			page,
+		});
 
 		return reply.status(200).send({
 			statusCode: 200,
