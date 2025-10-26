@@ -7,11 +7,13 @@ export const getCourseById = z.object({
 });
 
 export const getCourses = z.object({
-	query: z.object({
-		search: z.string().optional(),
-		orderBy: z.enum(["title", "id"]).optional().default("title"),
-		page: z.coerce.number().optional().default(1),
-	}),
+	query: z
+		.object({
+			search: z.string().optional(),
+			orderBy: z.enum(["title", "id"]).optional().default("title"),
+			page: z.coerce.number().optional().default(1),
+		})
+		.optional(),
 });
 
 export const createCourse = z.object({
