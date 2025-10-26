@@ -15,6 +15,20 @@
       "when": 1758940383685,
       "tag": "0001_nasty_darkhawk",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1761512929079,
+      "tag": "0002_thick_roxanne_simpson",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1761513088240,
+      "tag": "0003_yummy_red_skull",
+      "breakpoints": true
     }
   ]
 }
