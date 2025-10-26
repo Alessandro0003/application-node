@@ -1,6 +1,9 @@
 import fastifyCors from "@fastify/cors";
+import { fastifySwagger } from "@fastify/swagger";
+import { fastifySwaggerUi } from "@fastify/swagger-ui";
 import fastify from "fastify";
 import {
+	jsonSchemaTransform,
 	serializerCompiler,
 	validatorCompiler,
 	type ZodTypeProvider,
@@ -23,6 +26,21 @@ const app = fastify({
 app.register(fastifyCors, {
 	origin: "0.0.1",
 	methods: "*",
+});
+
+app.register(fastifySwagger, {
+	openapi: {
+		info: {
+			title: "Api Documentation",
+			version: "1.0.0",
+			description: "This is the API documentation for our Fastify server.",
+		},
+	},
+	transform: jsonSchemaTransform,
+});
+
+app.register(fastifySwaggerUi, {
+	routePrefix: "/docs",
 });
 
 app.setSerializerCompiler(serializerCompiler);
