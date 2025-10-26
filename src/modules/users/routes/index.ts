@@ -6,7 +6,33 @@ import { createUser, getUserById } from "../controllers/schema.ts";
 export const usersRoutes: FastifyPluginAsync = async (app) => {
 	const route = app.withTypeProvider<ZodTypeProvider>();
 
-	route.get("/:id", { schema: getUserById }, controller.getUserById);
-	route.get("/", controller.getUsers);
-	route.post("/", { schema: createUser }, controller.createUser);
+	route.get(
+		"/:id",
+		{
+			schema: {
+				tags: ["Users"],
+				params: getUserById,
+			},
+		},
+		controller.getUserById,
+	);
+
+	route.get(
+		"/",
+		{
+			schema: { tags: ["Users"] },
+		},
+		controller.getUsers,
+	);
+
+	route.post(
+		"/",
+		{
+			schema: {
+				tags: ["Users"],
+				body: createUser,
+			},
+		},
+		controller.createUser,
+	);
 };
