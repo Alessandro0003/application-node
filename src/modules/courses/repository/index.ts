@@ -1,4 +1,4 @@
-import { and, count, desc, eq, ilike, type SQL } from "drizzle-orm";
+import { and, asc, count, eq, ilike, type SQL } from "drizzle-orm";
 import { db } from "../../../database/client.ts";
 import { enrollments } from "../../enrollments/db/index.ts";
 import { courses } from "../db/index.ts";
@@ -43,13 +43,12 @@ export const getCourses = async (
 				enrollments: count(enrollments.id),
 			})
 			.from(courses)
-			.leftJoin(enrollments, eq(courses.id, enrollments.courseId))
-			.orderBy(desc(orderByColumn))
+			.leftJoin(enrollments, eq(enrollments.courseId, courses.id))
+			.orderBy(asc(orderByColumn))
 			.offset((currentPage - 1) * 2)
-			.limit(2)
+			.limit(10)
 			.where(and(...conditions))
 			.groupBy(courses.id),
-
 		db.$count(courses, and(...conditions)),
 	]);
 

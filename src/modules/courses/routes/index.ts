@@ -15,7 +15,7 @@ export const coursesRoutes: FastifyPluginAsync = async (app) => {
 		{
 			schema: {
 				tags: ["Courses"],
-				params: getCourseById,
+				getCourseById,
 			},
 		},
 		controllers.getCourseById,
@@ -26,7 +26,7 @@ export const coursesRoutes: FastifyPluginAsync = async (app) => {
 		{
 			schema: {
 				tags: ["Courses"],
-				querystring: getCourses,
+				getCourses,
 			},
 		},
 		controllers.getCourses,
@@ -37,7 +37,7 @@ export const coursesRoutes: FastifyPluginAsync = async (app) => {
 		{
 			schema: {
 				tags: ["Courses"],
-				body: createCourse,
+				createCourse,
 			},
 		},
 		controllers.createCourse,
