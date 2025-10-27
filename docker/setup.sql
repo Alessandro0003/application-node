@@ -1,0 +1,1 @@
+CREATE DATABASE app_node_test;
