@@ -1,5 +1,6 @@
-import { and, desc, eq, ilike, type SQL } from "drizzle-orm";
+import { and, count, desc, eq, ilike, type SQL } from "drizzle-orm";
 import { db } from "../../../database/client.ts";
+import { enrollments } from "../../enrollments/db/index.ts";
 import { courses } from "../db/index.ts";
 import type { CreateCourse, GetCourseById, GetCourses } from "./types.ts";
 
@@ -35,19 +36,26 @@ export const getCourses = async (
 
 	const [result, total] = await Promise.all([
 		db
-			.select()
+			.select({
+				id: courses.id,
+				title: courses.title,
+				description: courses.description,
+				enrollments: count(enrollments.id),
+			})
 			.from(courses)
+			.leftJoin(enrollments, eq(courses.id, enrollments.courseId))
 			.orderBy(desc(orderByColumn))
 			.offset((currentPage - 1) * 2)
 			.limit(2)
-			.where(and(...conditions)),
+			.where(and(...conditions))
+			.groupBy(courses.id),
 
 		db.$count(courses, and(...conditions)),
 	]);
 
-	const allCourse = result.map((courses) => ({
-		...courses,
-		description: courses.description || "",
+	const allCourse = result.map((course) => ({
+		...course,
+		description: course.description ?? "",
 	}));
 
 	return {

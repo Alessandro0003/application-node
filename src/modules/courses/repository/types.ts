@@ -20,6 +20,7 @@ export namespace GetCourses {
 			id: string;
 			title: string;
 			description: string;
+			enrollments: number;
 		}[];
 		total: number;
 	};

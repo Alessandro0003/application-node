@@ -21,6 +21,7 @@ export namespace GetCourse {
 			id: string;
 			title: string;
 			description: string;
+			enrollments: number;
 		}[];
 		total: number;
 	};
