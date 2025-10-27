@@ -3,7 +3,7 @@ import { expect, test } from "vitest";
 import { app } from "../../../src/app.ts";
 import { makeCourse } from "../../factories/make-course.ts";
 
-test("ger course by id", async () => {
+test("get course by id", async () => {
 	await app.ready();
 
 	const course = await makeCourse();
