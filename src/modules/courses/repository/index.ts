@@ -15,7 +15,6 @@ export const getCourseById = async (
 
 	return {
 		...course,
-		description: course.description || "",
 	};
 };
 

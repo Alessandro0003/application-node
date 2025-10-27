@@ -6,7 +6,7 @@ export namespace GetCourseById {
 	export type Response = {
 		id: string;
 		title: string;
-		description: string;
+		description: string | null;
 	};
 }
 
@@ -20,7 +20,7 @@ export namespace GetCourse {
 		courses: {
 			id: string;
 			title: string;
-			description: string;
+			description: string | null;
 			enrollments: number;
 		}[];
 		total: number;
