@@ -9,6 +9,7 @@ import {
 	type ZodTypeProvider,
 } from "fastify-type-provider-zod";
 import { coursesRoutes } from "./modules/courses/routes/index.ts";
+import { enrollmentsRoutes } from "./modules/enrollments/routes/index.ts";
 import { usersRoutes } from "./modules/users/routes/index.ts";
 
 const app = fastify({
@@ -48,6 +49,7 @@ app.setValidatorCompiler(validatorCompiler);
 
 app.register(usersRoutes, { prefix: "/users" });
 app.register(coursesRoutes, { prefix: "/courses" });
+app.register(enrollmentsRoutes, { prefix: "/enrollments" });
 
 app.listen({ port: 3333 }).then(() => {
 	console.log("HTTP server running!");
