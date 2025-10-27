@@ -4,11 +4,11 @@ import { schema } from "../../src/database/schema.ts";
 
 const { courses } = schema;
 
-export const makeCourse = async () => {
+export const makeCourse = async (title?: string) => {
 	const result = await db
 		.insert(courses)
 		.values({
-			title: faker.lorem.words(3),
+			title: title ?? faker.lorem.words(3),
 		})
 		.returning();
 
