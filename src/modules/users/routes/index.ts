@@ -11,7 +11,7 @@ export const usersRoutes: FastifyPluginAsync = async (app) => {
 		{
 			schema: {
 				tags: ["Users"],
-				params: getUserById,
+				getUserById,
 			},
 		},
 		controller.getUserById,
@@ -30,7 +30,7 @@ export const usersRoutes: FastifyPluginAsync = async (app) => {
 		{
 			schema: {
 				tags: ["Users"],
-				body: createUser,
+				createUser,
 			},
 		},
 		controller.createUser,
