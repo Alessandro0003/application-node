@@ -53,6 +53,7 @@ export const getCourses = async (
 
 		return reply.status(200).send({
 			statusCode: 200,
+			message: "Courses retrieved successfully",
 			data: courses,
 		});
 	} catch (error) {
