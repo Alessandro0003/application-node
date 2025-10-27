@@ -4,6 +4,7 @@
 	"main": "src/server.ts",
 	"scripts": {
 		"test": "dotenv -e .env.test vitest run",
+		"test:watch": "dotenv -e .env.test vitest",
 		"dev": "node --env-file .env --experimental-strip-types --no-warnings --watch src/server.ts",
 		"db:generate": "drizzle-kit generate",
 		"db:migrate": "drizzle-kit migrate",
