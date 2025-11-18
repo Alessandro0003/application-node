@@ -1,28 +1,25 @@
+import { randomUUID } from "node:crypto";
 import { faker } from "@faker-js/faker";
+import { hash } from "argon2";
 import { db } from "../../src/database/client.ts";
 import { schema } from "../../src/database/schema.ts";
 
 const { users } = schema;
 
-interface MakeUsersProps {
-	name?: string;
-	email?: string;
-	password?: string;
-	role?: "student" | "manager";
-}
-
-export const makeUsers = async (props: MakeUsersProps) => {
-	const { name, email, password, role } = props;
+export const makeUsers = async () => {
+	const passwordBeforeHash = randomUUID();
 
 	const result = await db
 		.insert(users)
 		.values({
-			email: email ?? faker.internet.email(),
-			name: name ?? faker.person.fullName(),
-			password: password ?? faker.internet.password(),
-			role: role ?? "student",
+			email: faker.internet.email(),
+			name: faker.person.fullName(),
+			password: await hash(passwordBeforeHash),
 		})
 		.returning();
 
-	return result[0];
+	return {
+		user: result[0],
+		passwordBeforeHash,
+	};
 };
