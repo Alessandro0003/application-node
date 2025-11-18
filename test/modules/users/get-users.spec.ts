@@ -15,7 +15,7 @@ describe("Get Users", async () => {
 	});
 
 	it("should be able to get a list of users", async () => {
-		const user = await makeUsers({});
+		const { user } = await makeUsers();
 
 		const response = await request(app.server).get("/users");
 
