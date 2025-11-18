@@ -7,6 +7,8 @@ export const getUserById = async (
 ): Promise<GetUserById.Response> => {
 	const { id } = args;
 
+	if (!id) throw new Error("User not found.");
+
 	const user = await repository.getUserById({ id });
 
 	if (!user) throw new Error("User not found.");

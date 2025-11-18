@@ -80,9 +80,9 @@ export const createUser = async (
 			message = error.message;
 		}
 
-		return reply.status(500).send({
-			statusCode: 500,
-			message,
-		});
-	}
-};
+			return reply.status(500).send({
+				statusCode: 500,
+				message,
+			});
+		}
+	};

@@ -8,7 +8,15 @@ export const getUserById = async (
 ): Promise<GetUserById.Response> => {
 	const { id } = args;
 
-	const result = await db.select().from(users).where(eq(users.id, id));
+	const result = await db
+		.select({
+			id: users.id,
+			name: users.name,
+			email: users.email,
+			role: users.role,
+		})
+		.from(users)
+		.where(eq(users.id, id));
 
 	const user = result[0];
 
@@ -16,14 +24,16 @@ export const getUserById = async (
 };
 
 export const getUsers = async (): Promise<GetUsers.Response> => {
-	const result = await db.select().from(users);
+	const result = await db
+		.select({
+			id: users.id,
+			name: users.name,
+			email: users.email,
+			role: users.role,
+		})
+		.from(users);
 
-	return result.map((users) => ({
-		id: users.id,
-		name: users.name,
-		email: users.email,
-		role: users.role,
-	}));
+	return result;
 };
 
 export const createUser = async (args: CreateUser.Args) => {
