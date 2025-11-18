@@ -6,7 +6,7 @@ import { app } from "../../../src/app";
 describe("Create a users", async () => {
 	await app.ready();
 
-	it.skip("should be able to create a new user", async () => {
+	it("should be able to create a new user", async () => {
 		const response = await request(app.server)
 			.post("/users")
 			.set("Content-Type", "application/json")
