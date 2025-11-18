@@ -3,13 +3,11 @@ import request from "supertest";
 import { beforeEach, describe, expect, it } from "vitest";
 import { app } from "../../../src/app";
 import { db } from "../../../src/database/client";
-import { schema } from "../../../src/database/schema";
+import { users } from "../../../src/database/schema";
 import { makeUsers } from "../../factories/make-users";
 
 describe("GetById User", async () => {
 	await app.ready();
-
-	const { users } = schema;
 
 	beforeEach(async () => {
 		await db.delete(users);

@@ -1,8 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { db } from "../../src/database/client.ts";
-import { schema } from "../../src/database/schema.ts";
-
-const { courses } = schema;
+import { courses } from "../../src/database/schema.ts";
 
 export const makeCourse = async (title?: string) => {
 	const result = await db

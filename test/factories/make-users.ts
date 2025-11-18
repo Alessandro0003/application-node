@@ -2,9 +2,7 @@ import { randomUUID } from "node:crypto";
 import { faker } from "@faker-js/faker";
 import { hash } from "argon2";
 import { db } from "../../src/database/client.ts";
-import { schema } from "../../src/database/schema.ts";
-
-const { users } = schema;
+import { users } from "../../src/database/schema.ts";
 
 export const makeUsers = async () => {
 	const passwordBeforeHash = randomUUID();
