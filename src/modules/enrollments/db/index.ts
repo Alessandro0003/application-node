@@ -1,7 +1,5 @@
 import { pgTable, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
-import { schema } from "../../../database/schema.ts";
-
-const { users, courses } = schema;
+import { courses, users } from "../../../database/schema.ts";
 
 export const enrollments = pgTable(
 	"enrollments",
