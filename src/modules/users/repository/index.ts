@@ -19,18 +19,22 @@ export const getUsers = async (): Promise<GetUsers.Response> => {
 	const result = await db.select().from(users);
 
 	return result.map((users) => ({
-		...users,
+		id: users.id,
+		name: users.name,
+		email: users.email,
+		role: users.role,
 	}));
 };
 
 export const createUser = async (args: CreateUser.Args) => {
-	const { name, email } = args;
+	const { name, email, password } = args;
 
 	const user = await db
 		.insert(users)
 		.values({
 			name,
 			email,
+			password,
 		})
 		.returning();
 

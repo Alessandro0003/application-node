@@ -1,3 +1,4 @@
+import { hash } from "argon2";
 import * as repository from "../repository/index.ts";
 import type { CreateUser, GetUserById, GetUsers } from "./types.ts";
 
@@ -6,9 +7,9 @@ export const getUserById = async (
 ): Promise<GetUserById.Response> => {
 	const { id } = args;
 
-	if (!id) throw new Error("ID is required.");
-
 	const user = await repository.getUserById({ id });
+
+	if (!user) throw new Error("User not found.");
 
 	return user;
 };
@@ -20,7 +21,7 @@ export const getUsers = async (): Promise<GetUsers.Response> => {
 };
 
 export const createUser = async (args: CreateUser.Args) => {
-	const { name, email } = args;
+	const { name, email, password } = args;
 
 	const users = await repository.getUsers();
 	const emaailAlreadyExists = users.some((user) => user.email === email);
@@ -29,9 +30,12 @@ export const createUser = async (args: CreateUser.Args) => {
 		throw new Error("Email already exists.");
 	}
 
+	const passwordHash = await hash(password);
+
 	const user = await repository.createUser({
 		name,
 		email,
+		password: passwordHash,
 	});
 
 	return user;

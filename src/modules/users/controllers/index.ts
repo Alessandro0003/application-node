@@ -41,6 +41,7 @@ export const getUsers = async (_req: GetUsersRequest, reply: FastifyReply) => {
 
 		return reply.send({
 			statusCode: 200,
+			message: "Users retrieved successfully",
 			data: users,
 		});
 	} catch (error) {
@@ -63,10 +64,10 @@ export const createUser = async (
 ) => {
 	try {
 		const {
-			body: { name, email },
+			body: { name, email, password },
 		} = req;
 
-		await service.createUser({ name, email });
+		await service.createUser({ name, email, password });
 
 		return reply.send({
 			statusCode: 201,
