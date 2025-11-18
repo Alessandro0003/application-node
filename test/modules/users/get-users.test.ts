@@ -5,10 +5,10 @@ import { db } from "../../../src/database/client";
 import { schema } from "../../../src/database/schema";
 import { makeUsers } from "../../factories/make-users";
 
-const { users } = schema;
-
 describe("Get Users", async () => {
 	await app.ready();
+
+	const { users } = schema;
 
 	beforeEach(async () => {
 		await db.delete(users);
