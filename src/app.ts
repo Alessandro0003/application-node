@@ -8,6 +8,7 @@ import {
 	validatorCompiler,
 	type ZodTypeProvider,
 } from "fastify-type-provider-zod";
+import { authRoutes } from "./modules/auth/routes/index.ts";
 import { coursesRoutes } from "./modules/courses/routes/index.ts";
 import { enrollmentsRoutes } from "./modules/enrollments/routes/index.ts";
 import { usersRoutes } from "./modules/users/routes/index.ts";
@@ -47,6 +48,7 @@ app.register(fastifySwaggerUi, {
 app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
 
+app.register(authRoutes, { prefix: "/auth" });
 app.register(usersRoutes, { prefix: "/users" });
 app.register(coursesRoutes, { prefix: "/courses" });
 app.register(enrollmentsRoutes, { prefix: "/enrollments" });
