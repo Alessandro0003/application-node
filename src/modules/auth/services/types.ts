@@ -4,7 +4,5 @@ export namespace SessionUser {
 		password: string;
 	};
 
-	export type Response = {
-		message: string;
-	};
+	export type Response = {};
 }

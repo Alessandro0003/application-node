@@ -1,5 +1,6 @@
 import type { FastifyReply } from "fastify";
 import * as service from "../services/index.ts";
+
 import type { SessionUserRequest } from "./types.ts";
 
 export const sessionUser = async (
@@ -11,11 +12,12 @@ export const sessionUser = async (
 			body: { email, password },
 		} = req;
 
-		await service.sessionUser({ email, password });
+		const result = await service.sessionUser({ email, password });
 
 		return reply.send({
 			statusCode: 200,
-			message: "ok",
+			message: "User signed in successfully.",
+			data: result,
 		});
 	} catch (error) {
 		let message = "Error sign in user";

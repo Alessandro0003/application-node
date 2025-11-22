@@ -3,12 +3,11 @@ export namespace SessionUser {
 		email: string;
 	};
 
-	export type Response =
-		| {
-				id: string;
-				name: string;
-				email: string;
-				password: string;
-		  }
-		| undefined;
+	export type Response = {
+		id: string;
+		name: string;
+		password: string;
+		email: string;
+		role: string;
+	};
 }

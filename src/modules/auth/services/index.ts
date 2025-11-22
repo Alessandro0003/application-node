@@ -1,4 +1,6 @@
 import { verify } from "argon2";
+import jwt from "jsonwebtoken";
+import { config } from "../../../config/index.ts";
 import * as repository from "../repository/index.ts";
 import type { SessionUser } from "./types.ts";
 
@@ -19,7 +21,12 @@ export const sessionUser = async (
 		throw new Error("Credentials are invalid.");
 	}
 
+	const token = jwt.sign(
+		{ sub: user.id, role: user.role },
+		config.jwt.JWT_SECRET,
+	);
+
 	return {
-		message: "ok",
+		token,
 	};
 };
