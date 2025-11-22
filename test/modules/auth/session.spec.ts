@@ -20,7 +20,10 @@ describe("Session User", async () => {
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			statusCode: 200,
-			message: "ok",
+			message: "User signed in successfully.",
+			data: {
+				token: expect.any(String),
+			},
 		});
 	});
 });
