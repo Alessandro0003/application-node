@@ -1,5 +1,7 @@
 import type { FastifyPluginAsync } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
+import { checkRequestJwt } from "../../../middleware/check-request-jwt.ts";
+import { checkUserRole } from "../../../middleware/check-user-role.ts";
 import * as controllers from "../controllers/index.ts";
 import {
 	createCourse,
@@ -13,12 +15,13 @@ export const coursesRoutes: FastifyPluginAsync = async (app) => {
 	route.get(
 		"/:id",
 		{
+			preHandler: [checkRequestJwt],
 			schema: {
 				tags: ["Courses"],
 				getCourseById,
 			},
 		},
-		controllers.getCourseById,
+		controllers.getCourseById as any,
 	);
 
 	route.get(
@@ -35,11 +38,12 @@ export const coursesRoutes: FastifyPluginAsync = async (app) => {
 	route.post(
 		"/",
 		{
+			preHandler: [checkRequestJwt, checkUserRole],
 			schema: {
 				tags: ["Courses"],
 				createCourse,
 			},
 		},
-		controllers.createCourse,
+		controllers.createCourse as any,
 	);
 };
