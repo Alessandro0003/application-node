@@ -64,10 +64,10 @@ export const createUser = async (
 ) => {
 	try {
 		const {
-			body: { name, email, password },
+			body: { name, email, password, role },
 		} = req;
 
-		await service.createUser({ name, email, password });
+		await service.createUser({ name, email, password, role });
 
 		return reply.send({
 			statusCode: 201,
@@ -80,9 +80,9 @@ export const createUser = async (
 			message = error.message;
 		}
 
-			return reply.status(500).send({
-				statusCode: 500,
-				message,
-			});
-		}
-	};
+		return reply.status(500).send({
+			statusCode: 500,
+			message,
+		});
+	}
+};

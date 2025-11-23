@@ -23,7 +23,7 @@ export const getUsers = async (): Promise<GetUsers.Response> => {
 };
 
 export const createUser = async (args: CreateUser.Args) => {
-	const { name, email, password } = args;
+	const { name, email, password, role } = args;
 
 	const users = await repository.getUsers();
 	const emaailAlreadyExists = users.some((user) => user.email === email);
@@ -38,6 +38,7 @@ export const createUser = async (args: CreateUser.Args) => {
 		name,
 		email,
 		password: passwordHash,
+		role,
 	});
 
 	return user;

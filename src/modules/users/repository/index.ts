@@ -37,7 +37,7 @@ export const getUsers = async (): Promise<GetUsers.Response> => {
 };
 
 export const createUser = async (args: CreateUser.Args) => {
-	const { name, email, password } = args;
+	const { name, email, password, role } = args;
 
 	const user = await db
 		.insert(users)
@@ -45,6 +45,7 @@ export const createUser = async (args: CreateUser.Args) => {
 			name,
 			email,
 			password,
+			role,
 		})
 		.returning();
 

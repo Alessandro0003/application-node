@@ -26,5 +26,6 @@ export namespace CreateUser {
 		name: string;
 		email: string;
 		password: string;
+		role?: "student" | "manager";
 	};
 }
