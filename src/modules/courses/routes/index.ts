@@ -38,7 +38,7 @@ export const coursesRoutes: FastifyPluginAsync = async (app) => {
 	route.post(
 		"/",
 		{
-			preHandler: [checkRequestJwt, checkUserRole],
+			preHandler: [checkRequestJwt, checkUserRole("manager")],
 			schema: {
 				tags: ["Courses"],
 				createCourse,
