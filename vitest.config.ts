@@ -7,5 +7,9 @@ export default defineConfig({
 			enabled: true,
 			reporter: ["text", "text-summary", "html"],
 		},
+		env: {
+			NODE_ENV: "test",
+		},
+		setupFiles: ["./test/setup.ts"],
 	},
 });
