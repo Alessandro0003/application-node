@@ -26,7 +26,7 @@ export const makeUsers = async (role?: "manager" | "student") => {
 };
 
 export const makeAuthenticateUser = async (role: "manager" | "student") => {
-	const { user } = await makeUsers();
+	const { user } = await makeUsers(role);
 
 	const token = jwt.sign(
 		{ sub: user.id, role: user.role },
