@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"main": "src/server.ts",
 	"scripts": {
+		"start": "node src/server.ts",
 		"test": "dotenv -e .env.test vitest run",
 		"test:watch": "dotenv -e .env.test vitest",
 		"test:coverage": "dotenv -e .env.test vitest run --coverage",
