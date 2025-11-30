@@ -109,3 +109,56 @@ Acesse `/docs` após iniciar o servidor para visualizar a documentação Swagger
 - Autenticação via JWT
 - Validação de dados com Zod
 - Controle de roles (RBAC)
+
+## 🚦 CI/CD
+
+### Integração Contínua (CI)
+
+O projeto utiliza **GitHub Actions** para executar testes E2E automaticamente em cada push ou pull request.
+
+**Pipeline de testes** (`.github/workflows/tests-e2e.yml`):
+- Provisionamento automático de PostgreSQL em container
+- Instalação de dependências com cache
+- Execução completa da suite de testes E2E
+- Ambiente isolado para cada execução
+
+Os testes são executados com:
+- Node.js 22
+- PostgreSQL 13 Alpine
+- Banco de dados dedicado para testes (`app_node_test`)
+- Healthcheck automático do banco antes dos testes
+
+### Deploy Contínuo (CD)
+
+O deploy da aplicação é realizado na plataforma **Fly.io** com as seguintes características:
+
+**Configuração** (`fly.toml`):
+- Região: São Paulo (GRU)
+- Porta interna: 3333
+- HTTPS forçado
+- Auto-scaling com mínimo de 0 máquinas
+- Memória: 1GB por máquina
+
+**Processo de deploy**:
+```bash
+# Deploy manual
+fly deploy
+
+# Logs em tempo real
+fly logs
+
+# Status da aplicação
+fly status
+```
+
+**Release automático**:
+- Migrations do banco são aplicadas automaticamente antes do deploy
+- Comando de release: `npm run db:migrate`
+- Zero downtime durante atualizações
+
+**Variáveis de ambiente**:
+Configure os secrets no Fly.io:
+```bash
+fly secrets set DATABASE_URL="sua-connection-string"
+fly secrets set JWT_SECRET="seu-secret"
+```
